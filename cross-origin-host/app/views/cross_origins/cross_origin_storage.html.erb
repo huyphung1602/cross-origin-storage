@@ -1,0 +1,43 @@
+<!doctype html>
+<head>
+  <title>Cross Storage Hub</title>
+</head>
+<body>
+  <%= javascript_tag nonce: true do -%>
+    window.addEventListener('DOMContentLoaded', () => {
+      window.parent.postMessage('loaded', '*');
+
+      const allowedDomains = [
+        'http://localhost:3000',
+        'http://localhost:3001',
+      ]
+
+      const allowedKeys = [
+        'foo',
+      ]
+
+      window.onmessage = (event) => {
+        console.log('Start event');
+        if (!allowedDomains.includes(event.origin)) {
+          return;
+        }
+        console.log('data ===>', event.data);
+        const { action, key, value } = event.data;
+        if (!allowedKeys.includes(key)) {
+          return;
+        }
+
+        if (action === 'set') {
+          window.localStorage.setItem(key, JSON.stringify(value));
+        } else if (action === 'get') {
+          event.source.postMessage({
+            action: 'returnData',
+            key,
+            value: JSON.parse(window.localStorage.getItem(key)),
+          }, returnDataDomain);
+        }
+      }
+    }, false);
+  <% end -%>
+</body>
+</html>

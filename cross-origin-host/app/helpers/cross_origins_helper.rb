@@ -1,0 +1,2 @@
+module CrossOriginsHelper
+end
