@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   content_security_policy do |policy|
-    policy.frame_ancestors :self, 'localhost:3000', 'localhost:3001'
+    policy.frame_src   :self, :https, 'localhost:3000'
   end
 
   def show

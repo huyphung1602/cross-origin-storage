@@ -9,6 +9,8 @@ Rails.application.config.content_security_policy do |policy|
   policy.font_src    :self, :https, :data
   policy.img_src     :self, :https, :data
   policy.object_src  :none
+  policy.frame_src   :self, :https
+  policy.frame_ancestors :self
   policy.script_src(
     :self,
     :strict_dynamic,
