@@ -25,7 +25,7 @@ class CrossOriginsController < ApplicationController
   # GET
   def get_data_from_cookie
     key = params[:key]
-    render json: { message: cookies[key] }, status: 200
+    render json: { value: cookies[key] }, status: 200
   end
 
   def allow_iframe_requests
