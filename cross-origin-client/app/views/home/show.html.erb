@@ -64,6 +64,27 @@
     }
   }
 
+  class CrossOriginStorageUsingCookie {
+    constructor () {
+      this.storageBaseUrl = 'http://localhost:3000'
+    }
+
+    async get (key) {
+      const fetchInit = {
+        method: 'GET',
+        mode: 'cors',
+        cache: 'default',
+        credentials: 'include',
+      };
+      return fetch(`http://localhost:3000/get_data_from_cookie?key=${key}`, fetchInit)
+        .then((response) => response.json())
+        .then((responseJson) => {
+          return responseJson
+        });
+    }
+  }
+
+
   window.addEventListener('DOMContentLoaded', () => {
     const el = window.document.getElementById('cross-origin-storage-iframe');
     if (el) {
@@ -72,4 +93,9 @@
       crossOriginStorage.set('foo', 'Toi la nguoi dep trai nhat tren doi');
     }
   }, false);
+
+  const crossOriginStorageUsingCookie = new CrossOriginStorageUsingCookie();
+  const response = crossOriginStorageUsingCookie.get('foo').then(response => {
+    console.log(response);
+  });
 <% end-%>

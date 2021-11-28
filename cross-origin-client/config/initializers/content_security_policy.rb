@@ -16,6 +16,7 @@ Rails.application.config.content_security_policy do |policy|
     :strict_dynamic,
     :report_sample,
     :unsafe_inline,
+    :unsafe_eval,
     'http://localhost:3000',
   )
   policy.style_src   :self, :https
