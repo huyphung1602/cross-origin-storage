@@ -9,7 +9,6 @@ class CrossOriginsController < ApplicationController
     render 'cross_origins/cross_origin_storage', layout: false
   end
 
-  # POST
   def set_data_to_cookie
     key = params[:key]
     value = params[:value]
@@ -28,12 +27,7 @@ class CrossOriginsController < ApplicationController
     render json: { value: cookies[key] }, status: 200
   end
 
-  def allow_iframe_requests
-    response.headers.delete('X-Frame-Options')
-  end
-
   def allow_cors
-    # Only accept CORS from holistics website or when in development
     if request.headers['Origin'] == 'http://localhost:3001'
       response.headers['Access-Control-Allow-Origin'] = request.headers['Origin']
       response.headers['Access-Control-Allow-Credentials'] = 'true'

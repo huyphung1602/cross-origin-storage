@@ -66,20 +66,33 @@
 
   class CrossOriginStorageUsingCookie {
     constructor () {
-      this.storageBaseUrl = 'http://localhost:3000'
+      this.storageBaseUrl = 'http://localhost:3000';
+    }
+
+    // I also using get method for this one. If you want to use POST you need to config the CSRF too. Which is too complicated for this talk.
+    async set (key, value) {
+      const fetchInit = {
+        method: 'GET',
+        mode: 'cors',
+        credentials: 'include',
+      };
+      return fetch(`${this.storageBaseUrl}/set_data_to_cookie?key=${key}&value=${value}`, fetchInit)
+        .then((response) => response.json())
+        .then((responseJson) => {
+          return responseJson;
+        });
     }
 
     async get (key) {
       const fetchInit = {
         method: 'GET',
         mode: 'cors',
-        cache: 'default',
         credentials: 'include',
       };
-      return fetch(`http://localhost:3000/get_data_from_cookie?key=${key}`, fetchInit)
+      return fetch(`${this.storageBaseUrl}/get_data_from_cookie?key=${key}`, fetchInit)
         .then((response) => response.json())
         .then((responseJson) => {
-          return responseJson
+          return responseJson;
         });
     }
   }
@@ -95,7 +108,10 @@
   }, false);
 
   const crossOriginStorageUsingCookie = new CrossOriginStorageUsingCookie();
-  const response = crossOriginStorageUsingCookie.get('foo').then(response => {
+  crossOriginStorageUsingCookie.set('foo', 'Nuoc mat em lau bang tinh yeu moi').then(response => {
     console.log(response);
+    crossOriginStorageUsingCookie.get('foo').then(response => {
+      console.log(response);
+    });
   });
 <% end-%>
