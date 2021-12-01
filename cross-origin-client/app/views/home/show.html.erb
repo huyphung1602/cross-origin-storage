@@ -48,6 +48,10 @@
     // get key, value from the cross origin storage
     async get (key) {
       await this.loadPromise;
+      this.storageWindow.postMessage({
+        action: 'get',
+        key,
+      }, this.storageBaseUrl);
       return new Promise((resolve) => {
         const handler = (event) => {
           if (event.origin !== this.storageBaseUrl) {
