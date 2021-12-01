@@ -34,7 +34,7 @@
             action: 'returnData',
             key,
             value: JSON.parse(window.localStorage.getItem(key)),
-          }, returnDataDomain);
+          }, event.origin);
         }
       }
     }, false);

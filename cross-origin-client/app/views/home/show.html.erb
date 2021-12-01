@@ -108,9 +108,11 @@
       console.log('Mai Le');
       const crossOriginStorage = new CrossOriginStorageClient(window, 'cross-origin-storage-iframe');
       crossOriginStorage.set('foo', 'Toi la nguoi dep trai nhat tren doi');
+      <%# crossOriginStorage.get('foo').then(res => console.log(res)); %>
     }
   }, false);
 
+  // Using cookie storage
   const crossOriginStorageUsingCookie = new CrossOriginStorageUsingCookie();
   crossOriginStorageUsingCookie.set('foo', 'Nuoc mat em lau bang tinh yeu moi').then(response => {
     console.log(response);

@@ -9,13 +9,14 @@ class CrossOriginsController < ApplicationController
     render 'cross_origins/cross_origin_storage', layout: false
   end
 
+  # GET
   def set_data_to_cookie
     key = params[:key]
     value = params[:value]
     cookies[key] = cookies[:name] = {
       value: value,
       expires: 1.year.from_now,
-      domain: %w(http://localhost:3000 http://localhost:3001),
+      domain: %w(http://localhost:3000 http://localhost:3001 https://secure.holistics.io),
       secure: true,
     }
     render json: { message: 'Set key successfully' }, status: 200
